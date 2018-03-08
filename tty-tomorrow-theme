@@ -1,0 +1,42 @@
+# Solarized theme for tty, the dark version.
+# Based on:
+#   - Solarized (http://ethanschoonover.com/solarized)
+#   - Xresources from http://github.com/altercation/solarized
+# Generated with pty2tty.awk by Joep van Delft
+# http://github.com/joepvd/tty-solarized
+if [ "$TERM" = "linux" ]; then
+    echo -en "\e]P01d1f21"
+    echo -en "\e]P8969896"
+    echo -en "\e]P1912226"
+    echo -en "\e]P9cc6666"
+    echo -en "\e]P2778900"
+    echo -en "\e]PAb5bd68"
+    echo -en "\e]P3ae7b00"
+    echo -en "\e]PBf0c674"
+    echo -en "\e]P41d2594"
+    echo -en "\e]PC81a2be"
+    echo -en "\e]P5682a9b"
+    echo -en "\e]PDb294bb"
+    echo -en "\e]P62b6651"
+    echo -en "\e]PE8abeb7"
+    echo -en "\e]P7929593"
+    echo -en "\e]PFecebec"
+    clear # against bg artifacts
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
