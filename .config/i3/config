@@ -17,21 +17,18 @@ set $mod Mod4
 for_window [class="^.*"] border pixel 2
 
 gaps inner 8
-smart_gaps on
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:NotoSansMono 10
+font xft:Inconsolata 12
 # class                 border  backgr. text    indicator child_border
-client.focused          #b5bd68 #778900 #ffffff #b5bd68   #b5bd68
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #1d1f21
-client.unfocused        #333333 #222222 #888888 #292d2e   #1d1f21
+client.focused          #b294bb #682a9b #c5c8c6 #b294bb   #b294bb
+client.focused_inactive #333333 #5f676a #c5c8c6 #1d1f21   #1d1f21
+client.unfocused        #333333 #222222 #888888 #1d1f21   #1d1f21
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
-
-hide_edge_borders smart
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -53,7 +50,7 @@ bindsym $mod+F4 kill
 bindsym Mod1+F4 kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -fn inconsolata-13 -sb '#778900' -b
+bindsym $mod+d exec --no-startup-id dmenu_run -fn inconsolata-12 -sb '#778900'
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -147,9 +144,9 @@ workspace 10 output HDMI1
 
 # add HDMI monitor when connected
 exec --no-startup-id xrandr --output HDMI1 --right-of eDP1
-bindsym $mod+m exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1
-bindsym $mod+Shift+m exec --no-startup-id xrandr --output HDMI1 --auto --same-as eDP1
-bindsym $mod+Shift+d exec --no-startup-id xrandr --output eDP1 --auto --output HDMI1 --off
+bindsym $mod+m exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1; exec --no-startup-id ~/.fehbg
+bindsym $mod+Shift+m exec --no-startup-id xrandr --output HDMI1 --auto --same-as eDP1; exec --no-startup-id ~/.fehbg
+bindsym $mod+Shift+d exec --no-startup-id xrandr --output eDP1 --auto --output HDMI1 --off; exec --no-startup-id ~/.fehbg
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -157,9 +154,9 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Shift+e exec i3-msg exit
+bindsym $mod+Shift+e exec --no-startup-id i3-msg exit
 # lock
-bindsym $mod+Control+l exec i3lock -i ~/.config/i3/background.png
+bindsym $mod+Control+l exec --no-startup-id i3lock -t -i ~/.config/i3/background.png
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -192,33 +189,35 @@ bindsym $mod+Control+i exec firefox
 bindsym $mod+Shift+i exec firefox
 bindsym $mod+Control+Shift+i exec firefox --private-window
 
-bindsym $mod+Control+o exec emacsclient -c -a '' "~/Documents/Schedule/schedule.org"
+bindsym $mod+Control+o exec --no-startup-id emacsclient -c -a '' "~/Documents/Schedule/schedule.org"
 
 # Audio/Backlight controls
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec amixer set Master 5%+; exec pkill -RTMIN+10 i3blocks #increase sound volume
-bindsym XF86AudioLowerVolume exec amixer set Master 5%-; exec pkill -RTMIN+10 i3blocks #decrease sound volume
-bindsym XF86AudioMute exec amixer set Master toggle; exec pkill -RTMIN+10 i3blocks # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+; exec --no-startup-id pkill -RTMIN+10 i3blocks #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-; exec --no-startup-id pkill -RTMIN+10 i3blocks #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle; exec --no-startup-id pkill -RTMIN+10 i3blocks # mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 # decrease screen brightness
 
 # Touchpad controls
-bindsym $mod+Control+p exec toggletouchpad # toggle touchpad
+bindsym $mod+Control+p exec --no-startup-id toggletouchpad # toggle touchpad
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play
+bindsym XF86AudioPause exec --no-startup-id playerctl pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
-bindsym Print exec scrot -e 'mv $f ~/Pictures/Screenshots'
-exec compton -CGb
+bindsym Print exec --no-startup-id scrot -e 'mv $f ~/Pictures/Screenshots'
+exec --no-startup-id compton -b --force-win-blend
+exec --no-startup-id ~/.fehbg
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+    height 20
     position top
     colors {
         background #1d1f21
