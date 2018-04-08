@@ -32,6 +32,10 @@
 (require 'evil)
 (evil-mode 1)
 (setq evil-move-beyond-eol t)
+(define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+(define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 (setq inhibit-startup-screen t)
 
 (require 'key-chord)
@@ -94,4 +98,5 @@
 (ac-config-default)
 (global-auto-complete-mode t)
 
-(find-file "~/Documents/Schedule/schedule.org")
+(global-visual-line-mode t)
+;(find-file "~/Documents/Schedule/schedule.org")
