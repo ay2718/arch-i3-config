@@ -17,6 +17,7 @@ set $mod Mod4
 for_window [class="^.*"] border pixel 2
 
 gaps inner 8
+force_focus_wrapping yes
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -80,6 +81,30 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+# move to monitor
+bindsym $mod+Control+h focus output left
+bindsym $mod+Control+j focus output down
+bindsym $mod+Control+k focus output up
+bindsym $mod+Control+l focus output right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Control+Left  focus output left
+bindsym $mod+Control+Down  focus output down
+bindsym $mod+Control+Up    focus output up
+bindsym $mod+Control+Right focus output right
+
+# move focused window to monitor
+bindsym $mod+Shift+Control+h move container to output left; focus output left
+bindsym $mod+Shift+Control+j move container to output down; focus output down
+bindsym $mod+Shift+Control+k move container to output up; focus output up
+bindsym $mod+Shift+Control+l move container to output right; focus output right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Control+Left  move container to output left; focus output left
+bindsym $mod+Shift+Control+Down  move container to output down; focus output down
+bindsym $mod+Shift+Control+Up    move container to output up; focus output up
+bindsym $mod+Shift+Control+Right move container to output right; focus output right
+
 # split in horizontal orientation
 bindsym $mod+semicolon split h
 
@@ -107,28 +132,28 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+a focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3; workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5; workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6; workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7; workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8; workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9; workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10; workspace number 10
 
 # use workspaces on different monitors
 workspace 1 output eDP1
@@ -142,12 +167,6 @@ workspace 8 output HDMI1
 workspace 9 output HDMI1
 workspace 10 output HDMI1
 
-# add HDMI monitor when connected
-exec --no-startup-id xrandr --output HDMI1 --right-of eDP1
-bindsym $mod+m exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1; exec --no-startup-id ~/.fehbg
-bindsym $mod+Shift+m exec --no-startup-id xrandr --output HDMI1 --auto --same-as eDP1; exec --no-startup-id ~/.fehbg
-bindsym $mod+Shift+d exec --no-startup-id xrandr --output eDP1 --auto --output HDMI1 --off; exec --no-startup-id ~/.fehbg
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -156,7 +175,7 @@ bindsym $mod+Shift+r restart
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+Shift+e exec --no-startup-id i3-msg exit
 # lock
-bindsym $mod+Control+l exec --no-startup-id i3lock -t -i ~/.config/i3/background.png
+bindsym $mod+Control+n exec --no-startup-id i3lock -t -i ~/.config/i3/background.png
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -184,12 +203,32 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+mode "monitor" {
+    bindsym h exec --no-startup-id xrandr --output HDMI1 --auto --left-of eDP1; exec --no-startup-id ~/.fehbg; mode "default"
+    bindsym j exec --no-startup-id xrandr --output HDMI1 --auto --below eDP1; exec --no-startup-id ~/.fehbg; mode "default"
+    bindsym k exec --no-startup-id xrandr --output HDMI1 --auto --above eDP1; exec --no-startup-id ~/.fehbg; mode "default"
+    bindsym l exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1; exec --no-startup-id ~/.fehbg; mode "default"
+
+    bindsym Left  exec --no-startup-id xrandr --output HDMI1 --auto --left-of eDP1; exec --no-startup-id ~/.fehbg; mode "default"
+    bindsym Down  exec --no-startup-id xrandr --output HDMI1 --auto --below eDP1; exec --no-startup-id ~/.fehbg; mode "default"
+    bindsym Up    exec --no-startup-id xrandr --output HDMI1 --auto --above eDP1; exec --no-startup-id ~/.fehbg; mode "default"
+    bindsym Right exec --no-startup-id xrandr --output HDMI1 --auto --right-of eDP1; exec --no-startup-id ~/.fehbg; mode "default"
+
+    bindsym d exec --no-startup-id xrandr --output eDP1 --auto --output HDMI1 --off; exec --no-startup-id ~/.fehbg; mode "default"
+    bindsym Shift+d exec --no-startup-id xrandr --output eDP1 --output HDMI1 --auto --same-as eDP1; exec --no-startup-id ~/.fehbg; mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+m mode "monitor"
+
 # Aaron's shortcuts
 bindsym $mod+Control+i exec firefox
 bindsym $mod+Shift+i exec firefox
 bindsym $mod+Control+Shift+i exec firefox --private-window
 
-bindsym $mod+Control+o exec --no-startup-id emacsclient -c -a '' "~/Documents/Schedule/schedule.org"
+bindsym $mod+Control+o exec --no-startup-id emacsclient -c -a '' # "~/Documents/Schedule/schedule.org"
 
 # Audio/Backlight controls
 # Pulse Audio controls
