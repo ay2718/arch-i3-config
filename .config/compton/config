@@ -1,0 +1,11 @@
+opacity-rule = ["0:_NET_WM_STATE@[0]:32a = '_NET_WM_STATE_HIDDEN'",
+"0:_NET_WM_STATE@[1]:32a = '_NET_WM_STATE_HIDDEN'",
+"0:_NET_WM_STATE@[2]:32a = '_NET_WM_STATE_HIDDEN'",
+"0:_NET_WM_STATE@[3]:32a = '_NET_WM_STATE_HIDDEN'",
+"0:_NET_WM_STATE@[4]:32a = '_NET_WM_STATE_HIDDEN'"]
+
+mark-ovredir-focused = true;
+inactive-opacity = 0.875;
+menu-opacity = 0.875;
+force-win-blend = true;
+inactive-dim = 0.3
